@@ -1,14 +1,15 @@
 const $ = require('jquery');
 
 export default function(callbackFn) {
-    
+
     let currentText = '';
     let currentFilename = '';
-    
-    var gd = {
-        CLIENT_ID : '219206830455.apps.googleusercontent.com',
-        SCOPES : 'https://www.googleapis.com/auth/drive'
-    }
+
+    var gd = {};
+    // {
+    //     CLIENT_ID : '219206830455.apps.googleusercontent.com',
+    //     SCOPES : 'https://www.googleapis.com/auth/drive'
+    // }
 
     // Called during startup to prevent blocking
     var script = document.createElement("script");
@@ -59,14 +60,14 @@ export default function(callbackFn) {
                 gd.handleAuthResult);
         };
       }
-      
+
     }
 
     gd.updateButton = function(status, active, link){
         var exportBlockGd = $('.export-block-gd');
         exportBlockGd[0].innerHTML = status;
         if (active == true){
-            exportBlockGd.addClass('gd-authenticated').removeClass("unauth");  
+            exportBlockGd.addClass('gd-authenticated').removeClass("unauth");
         } else if (active == false){
             exportBlockGd.removeClass('gd-authenticated');
         }
@@ -76,7 +77,7 @@ export default function(callbackFn) {
         } else {
             exportBlockGd[0].addEventListener('click', insertGoogleDriveFile);
         }
-        
+
     }
 
     gd.button = function(){
@@ -93,14 +94,14 @@ export default function(callbackFn) {
         insertFile(file);
       });
     }
-    
+
     const createBlob = function(){
         var p = currentText;
         var aFileParts = [p];
         var oBlob = new Blob(aFileParts, {type : 'text/html'}); // the blob
         return oBlob;
     }
-    
+
     const createReader = function(){
         var reader = new FileReader();
         var blob = createBlob();
@@ -156,8 +157,7 @@ export default function(callbackFn) {
         });
       } // reader.onload
     }
-    
+
     callbackFn();
     return checkAuth;
 }
-
